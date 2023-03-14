@@ -6,8 +6,7 @@ import { createTechnics, editTechnic, updateTechnics } from '../store/fightStore
 import { Label, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import MyTextInput from '../form-items/MyTextInput';
-import axios from 'axios';
-
+import * as Yup from 'yup';
 
 export default function UpdateForm({setShowForm}){
 
@@ -31,12 +30,12 @@ export default function UpdateForm({setShowForm}){
         ]
     }
 
-    const [values, setValues] = useState(initialValues);
-
-    function handleInputChange(e){
-        const {name, value} = e.target;
-        setValues({...values, [name]:value})
-    }
+    const validationSchema = Yup.object({
+        title: Yup.string().required(),
+        description: Yup.string().required(),
+        category:Yup.string().required(),
+        photoURL: Yup.string().required()
+    })
 
         
 
@@ -46,6 +45,7 @@ export default function UpdateForm({setShowForm}){
 
             <Formik 
             initialValues={initialValues}
+
        
             onSubmit= {(values)=>{
                 console.log(values) 

@@ -17,9 +17,23 @@ export const getTechnics = () => async (dispatch) => {
     }
 }
 
-export const createTechnic = () => async (dispatch) => {
+export const getTechnic = (id) => async (dispatch) => {
     try{
-        const res = FightService.create();
+        const res = await FightService.getOne(id);
+
+        dispatch({
+            type:GET_TECHNICS,
+            payload:res.data
+        })
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const createTechnic = (data) => async (dispatch) => {
+    try{
+        const res = await FightService.create(data);
 
         dispatch({
             type:CREATE_TECHNICS,
@@ -45,11 +59,11 @@ export const editTechnic = (id, data) => async (dispatch) => {
 
 export const deleteTechnic = (id) => async (dispatch) => {
     try{
-        const res = await FightService.remove(id);
+        await FightService.remove(id);
 
         dispatch({
             type:DELETE_TECHNICS,
-            payload:res.data
+            payload:id
         })
 
     }catch(err){

@@ -1,8 +1,11 @@
 
-import { CREATE_TECHNICS, DELETE_TECHNICS, GET_TECHNICS, UPDATE_TECHNICS } from "./fightConstants"
+import { CREATE_TECHNICS, DELETE_TECHNICS, GET_TECHNIC, GET_TECHNICS, UPDATE_TECHNICS } from "./fightConstants"
+
 
 const initialState = {
-    technics:[]
+    technics:[],
+    currentTechnicId:'',
+    currentTechnic:{}
 }
 
 export default function fightReducer(state=initialState, {type, payload}){
@@ -13,6 +16,12 @@ export default function fightReducer(state=initialState, {type, payload}){
             ...state,
             technics:payload
         };
+
+        case GET_TECHNIC:
+            return{
+                ...state,
+                technic:payload
+            }
 
         case CREATE_TECHNICS:
             return {
@@ -29,7 +38,8 @@ export default function fightReducer(state=initialState, {type, payload}){
         case DELETE_TECHNICS:
             return {
                 ...state,
-                technics:[...state.technics.filter(o=>o.id !== payload.id)]
+                technics:[...state.technics.filter(o=>o.id !== payload)],
+                currentTechnicId:payload
             };
         
         default:

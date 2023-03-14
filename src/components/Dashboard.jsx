@@ -12,8 +12,15 @@ export default function DashBoard({showForm, setShowForm, loading}){
 
   const dispatch = useDispatch();
 
+  useEffect(()=>{
+
+      dispatch(getTechnics());
+    
+  }, []);
+
   const {technics} = useSelector(state => state.fight);
 
+  
 
 
 
@@ -21,7 +28,7 @@ export default function DashBoard({showForm, setShowForm, loading}){
         <Grid columns={3} divided>
       <Grid.Column>
         {loading && <LoadingComponent/>}
-        {!loading && technics.map(technic=>(
+        {!loading && technics.map((technic)=>(
             <Technics technic={technic} key={technic.id} setShowForm={setShowForm} loading={loading}/>
 
         ))}
@@ -32,7 +39,6 @@ export default function DashBoard({showForm, setShowForm, loading}){
         {showForm && 
                      <TechnicForm setShowForm={setShowForm} technics={technics}/>
         }
-        <Button onClick={()=> dispatch(openModal({modalType:'TestModal'}))} content="Open Modal"/>
         
       </Grid.Column>
 

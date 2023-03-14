@@ -4,6 +4,10 @@ const getAll = () =>{
     return http.get('/technics');
 }
 
+const getOne = (id) =>{
+    return http.get(`/technics/${id}`)
+}
+
 const update = (id, data) => {
     return http.put(`/technics/${id}`, data)
 }

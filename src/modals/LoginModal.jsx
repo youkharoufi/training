@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import React from 'react';
 import MyTextInput from '../form-items/MyTextInput';
 import ModalWrapper from './ModalWrapper';
-import { Button } from 'semantic-ui-react';
+import { Button, Segment, Label } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../store/authStore/authActions';
 import * as Yup from 'yup';
@@ -24,27 +24,43 @@ export function LoginModal(){
 
     return(
         <ModalWrapper>
-        <Formik initialValues={initialValues}  
+          <Segment raised>
+          <h2>Login</h2>
+          <Formik initialValues={initialValues}  
 
-                validationSchema={validationSchema}
-        
-                onSubmit={(values)=>{
-                if(values.email === currentUser.email && values.password === currentUser.password){
-                    dispatch(signin(values));
-                }else{
-                    console.log("Invalid credentials");
-                }
-        }}>
-            <Form>
-            <MyTextInput name="email" type="email" placeholder="Email"/>
+            validationSchema={validationSchema}
+
+            onSubmit={(values)=>{
+            if(values.email === currentUser.email && values.password === currentUser.password){
+                dispatch(signin(values));
+            }else{
+                console.log("Invalid credentials");
+            }
+            }}>
+
+            <div style={{marginLeft:'auto', marginRight:'auto', width:'40%'}}>
+            <Form clearing>
+
+            <Label>Email</Label>
+            <MyTextInput style={{marginBottom:'10px'}} name="email" type="email" placeholder="Email"/>
+
+            <Label>Password</Label>
             <MyTextInput name="password" type="password" placeholder="password"/>
 
-            <Button type="submit" content="Login"/>
+            <Button style={{margin:'10px'}} type="submit" color='green' content="Login"/>
 
             </Form>
 
 
-        </Formik>
+            </div>
+            
+
+
+            </Formik>
+
+
+          </Segment>
+        
             
         </ModalWrapper>
     )

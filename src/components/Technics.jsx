@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { deleteTechnic } from '../store/fightStore/fightActions';
+import { openModal } from '../modals/modalReducer';
 
 export default function Technics({technic, setShowForm, loading}){
 
@@ -21,7 +22,7 @@ export default function Technics({technic, setShowForm, loading}){
             <Button onClick={()=>{
 ;
                 
-                    dispatch(deleteTechnic(technic.id));
+                    dispatch(openModal({modalType:'DeleteModal', modalProps:{technic}}));
 
                 
                
